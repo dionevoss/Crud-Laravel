@@ -12,14 +12,14 @@
         </div>
 
         @if ($message = Session::get('success'))
-            <div class="alert aler-success">
+            <div class="alert alert-success">
             <p>{{ $message }}</p>
             </div>
         @endif
 
         <table class="table table-hover table-sm">
             <tr>
-                <th width="50px"><b>ID</b></th>
+                <th width="50px"><b>Nº</b></th>
                 <th width="300px">Nome</th>
                 <th width="300px">Sobrenome</th>
                 <th>Turma</th>
@@ -30,12 +30,12 @@
                 <tr>
                     <td><b>{{ ++$i }}.</b></td>
                     <td>{{ $biodata->name }}</td>
-                    <td>{{ $biodata->sobrenome }}</td>
-                    <td>{{ $biodata->turma }}</td>
+                    <td>{{ $biodata->lastname }}</td>
+                    <td>{{ $biodata->class }}</td>
                     <td>
                         <form action="{{ route('biodata.destroy', $biodata->id) }}" method="post">
-                            <a class="btn btn-sm btn-success" href="{{ route('biodata.show',$biodata->id) }}"></a>
-                            <a class="btn btn-sm btn-warning" href="{{ route('biodata.edit',$biodata->id) }}"></a>
+                            <a style="padding-right: 26px; padding-left: 26px; margin-bottom: 5px;" class="btn btn-sm btn-success" href="{{ route('biodata.show',$biodata->id) }}">+Detalhes</a><br>
+                            <a class="btn btn-sm btn-warning" href="{{ route('biodata.edit',$biodata->id) }}">Editar</a>
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-sm btn-danger">Excluir</button>

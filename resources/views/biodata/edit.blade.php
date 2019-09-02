@@ -3,7 +3,7 @@
     <div class="conteiner">
         <div class="row">
             <div class="col-lg-12">
-                <h3>Novo Aluno</h3>
+                <h3>Editar Aluno</h3>
             </div>
         </div>
 
@@ -18,20 +18,21 @@
             </div>
         @endif
 
-        <form action="{{ route('biodata.store') }}" method="post">
+        <form action="{{ route('biodata.update', $biodata->id) }}" method="post">
         @csrf
+        @method('PUT')
             <div class="row">
                 <div class="col-md-12">
                     <strong>Nome Aluno: </strong>
-                    <input type="text" name="name" class="form-control" placeholder="Nome do Aluno">
+                    <input type="text" name="name" class="form-control" value="{{ $biodata->name }}">
                 </div>
                 <div class="col-md-12">
                     <strong>Sobrenome Aluno: </strong>
-                    <input type="text" name="lastname" class="form-control" placeholder="Sobrenome do Aluno">
+                    <input type="text" name="lastname" class="form-control" value="{{ $biodata->lastname }}">
                 </div>
                 <div class="col-md-12">
                     <strong>Turma do Aluno: </strong>
-                    <input type="text" name="class" class="form-control" placeholder="Turma do Aluno">
+                    <input type="text" name="class" class="form-control" value="{{ $biodata->class }}">
                 </div>
 
                 <div class="col-md-12">

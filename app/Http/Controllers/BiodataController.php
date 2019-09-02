@@ -45,7 +45,7 @@ class BiodataController extends Controller
 
         Biodata::create($request->all());
         return redirect()->route('biodata.index')
-                        ->with('success', 'Novo Cadastro de Aluno Criado!');
+                        ->with('success', 'Novo aluno cadastrado!');
 
     }
 
@@ -57,7 +57,8 @@ class BiodataController extends Controller
      */
     public function show($id)
     {
-        //
+        $biodata = Biodata::find($id);
+        return view('biodata.detail', compact('biodata'));
     }
 
     /**
@@ -68,7 +69,8 @@ class BiodataController extends Controller
      */
     public function edit($id)
     {
-        //
+        $biodata = Biodata::find($id);
+        return view('biodata.edit', compact('biodata'));
     }
 
     /**
@@ -80,7 +82,18 @@ class BiodataController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'lastname' => 'required',
+            'class' => 'required'
+            ]);
+        $biodata = Biodata::find($id);
+        $biodata->name = $request->get('name');
+        $biodata->lastname = $request->get('lastname');
+        $biodata->class = $request->get('class');
+        $biodata->save();
+        return redirect()->route('biodata.index')
+                        ->with('success', 'Informações de Aluno atualizadas com sucesso!');
     }
 
     /**
@@ -91,6 +104,9 @@ class BiodataController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $biodata = Biodata::find($id);
+        $biodata->delete();
+        return redirect()->route('biodata.index')
+                        ->with('success', 'Aluno foi excluido com sucesso!');
     }
 }

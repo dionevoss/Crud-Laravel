@@ -14,7 +14,7 @@ class BiodataController extends Controller
      */
     public function index()
     {
-        $biodatas = Biodata::latests()->paginate(5);
+        $biodatas = Biodata::latest()->paginate(5);
         return view('biodata.index', compact('biodatas'))
                     ->with('i', (request()-> input('page', 1) -1)*5);
     }
@@ -26,7 +26,7 @@ class BiodataController extends Controller
      */
     public function create()
     {
-        //
+        return view('biodata.create');
     }
 
     /**
@@ -37,7 +37,16 @@ class BiodataController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'lastname' => 'required',
+            'class' => 'required'
+        ]);
+
+        Biodata::create($request->all());
+        return redirect()->route('biodata.index')
+                        ->with('success', 'Novo Cadastro de Aluno Criado!');
+
     }
 
     /**
